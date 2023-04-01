@@ -1,36 +1,34 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TrafficLightCheck : MonoBehaviour
 {
+    // Private fields
     private CarBehaviour _carBehaviour;
-
     private TrafficLight _trafficLight;
-    
-    [SerializeField]
-    private TrafficLight.LightColor currLightState;
-    
-    [SerializeField]private CarBehaviour.CarBehaviourState currCarState;
-    
+
     private void Start()
     {
+        // Try to get the parent's CarBehaviour component
         transform.parent.TryGetComponent(out _carBehaviour);
     }
 
     private void OnTriggerStay(Collider other)
     {
+        // If the other collider isn't tagged with "TrafficLight", return
         if(!other.CompareTag("TrafficLight"))return;
+        
+        // Try to get the other collider's TrafficLight component
         other.transform.TryGetComponent(out _trafficLight);
+        
+        // Check the status of the traffic light
         CheckLightStatus(_trafficLight.lightColor);
     }
     
-
+    // Check the status of the traffic light and change the car's behavior accordingly
     private void CheckLightStatus(TrafficLight.LightColor trafficLight)
     {
-        currLightState = trafficLight;
-        currCarState = _carBehaviour.carBehaviourState;
+        // Switch statement to handle the different traffic light colors
         switch (trafficLight)
         {
             case TrafficLight.LightColor.Red:
@@ -43,6 +41,7 @@ public class TrafficLightCheck : MonoBehaviour
                 _carBehaviour.ChangeBehaviour(CarBehaviour.CarBehaviourState.Move);
                 break;
             default:
+                // If the traffic light color isn't recognized, throw an error
                 throw new ArgumentOutOfRangeException();
         }
     }
