@@ -22,14 +22,15 @@ public class CarBehaviour : MonoBehaviour
    [SerializeField] private float speed;
    [SerializeField] private Transform goToPos;
    [SerializeField] private float stopDistance;
-
+   private Vector3 _previousPos;
+   
    private void Start()
    {
       TryGetComponent(out _navMeshAgent);
       _navMeshAgent.speed = speed;
    }
 
-   private void Update()
+   private void FixedUpdate()
    {
       CheckBehaviour();
    }
@@ -53,17 +54,20 @@ public class CarBehaviour : MonoBehaviour
    }
    
    private void Move()
-   {
-      _navMeshAgent.speed = speed;
+   { 
       _navMeshAgent.isStopped = false;
+      _navMeshAgent.speed = speed;
       var differenceVector = goToPos.position - transform.position;
-      _navMeshAgent.Move(transform.forward);
+      var whereToGo = transform.forward * (Time.deltaTime * _navMeshAgent.speed);
+      _navMeshAgent.Move(whereToGo);
+      // _navMeshAgent.Move(transform.forward);
       //_navMeshAgent.destination = differenceVector.magnitude > stopDistance ? goToPos.position : transform.position;
    }
 
    private void SlowDown()
    {
-      var speed = _navMeshAgent.speed;
+      var whereToGo = transform.forward * (Time.deltaTime * _navMeshAgent.speed / 2);
+      _navMeshAgent.Move(whereToGo);   
    }
 
    private void Stop()

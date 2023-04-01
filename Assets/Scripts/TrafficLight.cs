@@ -12,9 +12,9 @@ public class TrafficLight : MonoBehaviour
    
    public enum LightColor
    {
-      Red = 0,
+      Red = 2,
       Yellow = 1,
-      Green = 2
+      Green = 0
    };
 
    public LightColor lightColor;
@@ -22,10 +22,14 @@ public class TrafficLight : MonoBehaviour
    private float _t;
    private int _lightIndex;
 
+   private void Awake()
+   {
+      _lightIndex = 0;
+      lightColor = LightColor.Green;
+   }
+
    private void Start()
    {
-      lightColor = LightColor.Red;
-      _lightIndex = 0;
       CheckLightColor();
    }
 
@@ -87,7 +91,7 @@ public class TrafficLight : MonoBehaviour
             break;
          default:
             throw new ArgumentOutOfRangeException();
-      }
+      } 
       
       _t = 0;
    }

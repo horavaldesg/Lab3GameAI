@@ -9,7 +9,7 @@ public class IndividualLight : MonoBehaviour
     [SerializeField] private Material lightOn;
     [SerializeField] private Material lightOff;
     
-    private void Start()
+    private void Awake()
     {
         TryGetComponent(out _meshRenderer);
     }
