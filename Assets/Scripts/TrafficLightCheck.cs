@@ -18,7 +18,7 @@ public class TrafficLightCheck : MonoBehaviour
         // If the other collider isn't tagged with "TrafficLight", return
         if(!other.CompareTag("TrafficLight"))return;
         
-        // Try to get the other collider's TrafficLight component
+        // Try to get the other colliders TrafficLight component
         other.transform.TryGetComponent(out _trafficLight);
         
         // Check the status of the traffic light
