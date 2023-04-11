@@ -1,4 +1,6 @@
 using System;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TrafficLightCheck : MonoBehaviour
@@ -7,17 +9,40 @@ public class TrafficLightCheck : MonoBehaviour
     private CarBehaviour _carBehaviour;
     private TrafficLight _trafficLight;
 
+    private bool _canTurn;
+    
+
     private void Start()
     {
         // Try to get the parent's CarBehaviour component
         transform.parent.TryGetComponent(out _carBehaviour);
+        _canTurn = false;
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("CheckPoint"))
+        {
+            _carBehaviour.SetCheckPoint(other.transform);
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
         // If the other collider isn't tagged with "TrafficLight", return
-        if(!other.CompareTag("TrafficLight"))return;
-        
+        switch (other.tag)
+        {
+            case "TrafficLight":
+                CheckTrafficLight(other);
+                break;
+            case "TurnPost":
+               // CheckTrafficPost(other);
+                break;
+        }
+    }
+
+    private void CheckTrafficLight(Collider other)
+    {
         // Try to get the other colliders TrafficLight component
         other.transform.TryGetComponent(out _trafficLight);
         

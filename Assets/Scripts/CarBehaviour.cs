@@ -13,7 +13,8 @@ public class CarBehaviour : MonoBehaviour
    {
       Move,
       SlowDown,
-      Stop
+      Stop,
+      CheckCheckPoint
    };
 
    // The current behavior of the car.
@@ -27,6 +28,19 @@ public class CarBehaviour : MonoBehaviour
 
    // The previous position of the car.
    private Vector3 _previousPos;
+   
+   //CheckPoints
+   [SerializeField] private Transform[] checkPoints;
+
+   private int _checkPointIndex = 0;
+
+   private Transform _currentCheckPoint;
+   
+   public void SetCheckPoint(Transform checkPoint)
+   {
+      _currentCheckPoint = checkPoint;
+      ChangeBehaviour(CarBehaviourState.CheckCheckPoint);
+   }
 
    // Initializes the NavMeshAgent component and sets its speed.
    private void Start()
@@ -55,6 +69,9 @@ public class CarBehaviour : MonoBehaviour
          case CarBehaviourState.Stop:
             Stop();
             break;
+         case CarBehaviourState.CheckCheckPoint:
+            CheckCheckPoint();
+            break;
          default:
             throw new ArgumentOutOfRangeException();
       }
@@ -82,6 +99,20 @@ public class CarBehaviour : MonoBehaviour
       _navMeshAgent.isStopped = true;
    }
 
+   private void CheckCheckPoint()
+   {
+      _checkPointIndex = Array.IndexOf(checkPoints, _currentCheckPoint);
+      _checkPointIndex++;
+      if (_checkPointIndex > checkPoints.Length - 1)
+      {
+         _checkPointIndex = 0;
+      }
+
+      _navMeshAgent.isStopped = false;
+      _navMeshAgent.speed = speed;
+      _navMeshAgent.destination = checkPoints[_checkPointIndex].position;
+   }
+   
    // Changes the current behavior of the car.
    public void ChangeBehaviour(CarBehaviourState behaviourState)
    {

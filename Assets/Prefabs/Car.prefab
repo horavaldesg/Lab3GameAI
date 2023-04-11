@@ -84,8 +84,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e0972745259f54e9c47e5fa1a5975b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currLightState: 0
-  currCarState: 0
 --- !u!1 &4422411005083744758
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,5 +220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carBehaviourState: 0
   speed: 3
-  goToPos: {fileID: 0}
-  stopDistance: 5
+  checkPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

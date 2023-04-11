@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - TrafficLight
+  - TurnPost
+  - CheckPoint
   layers:
   - Default
   - TransparentFX
