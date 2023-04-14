@@ -8,15 +8,12 @@ public class TrafficLightCheck : MonoBehaviour
     // Private fields
     private CarBehaviour _carBehaviour;
     private TrafficLight _trafficLight;
-
-    private bool _canTurn;
     
 
     private void Start()
     {
         // Try to get the parent's CarBehaviour component
         transform.parent.TryGetComponent(out _carBehaviour);
-        _canTurn = false;
     }
     
     private void OnTriggerEnter(Collider other)

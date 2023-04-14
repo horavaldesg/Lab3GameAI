@@ -101,13 +101,18 @@ public class CarBehaviour : MonoBehaviour
 
    private void CheckCheckPoint()
    {
+      //Gets the current checkpoint index the car is on
       _checkPointIndex = Array.IndexOf(checkPoints, _currentCheckPoint);
+      //Increases the checkpoint destination index by 1
       _checkPointIndex++;
+      
+      //Checks if the index is greater than the length of the checkpoint array
       if (_checkPointIndex > checkPoints.Length - 1)
       {
          _checkPointIndex = 0;
       }
 
+      //Makes navmesh agent move
       _navMeshAgent.isStopped = false;
       _navMeshAgent.speed = speed;
       _navMeshAgent.destination = checkPoints[_checkPointIndex].position;
