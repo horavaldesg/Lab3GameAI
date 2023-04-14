@@ -41,6 +41,12 @@ public class TrafficLightCheck : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        _trafficLight = null;
+        _carBehaviour.ChangeBehaviour(CarBehaviour.CarBehaviourState.Move);
+    }
+
     private void CheckTrafficLight(Collider other)
     {
         // Try to get the other colliders TrafficLight component
