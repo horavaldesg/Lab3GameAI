@@ -1,9 +1,11 @@
 // This script controls the behavior of a car using NavMeshAgent
 // and defines three different states: Move, SlowDown, and Stop.
-
+// and three difference car types: Defensive, Panic, and Emergency
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class CarBehaviour : MonoBehaviour
@@ -16,26 +18,27 @@ public class CarBehaviour : MonoBehaviour
       Stop,
       CheckCheckPoint
    };
-
+   
    // The current behavior of the car.
    public CarBehaviourState carBehaviourState;
+   
 
    // The NavMeshAgent component attached to the car object.
-   private NavMeshAgent _navMeshAgent;
+   protected NavMeshAgent _navMeshAgent;
 
    // The speed of the car.
-   [SerializeField] private float speed;
+   [SerializeField] protected float speed;
 
    // The previous position of the car.
    private Vector3 _previousPos;
-   
+
    //CheckPoints
    [SerializeField] private Transform[] checkPoints;
 
-   private int _checkPointIndex = 0;
+   private int _checkPointIndex;
 
    private Transform _currentCheckPoint;
-   
+
    public void SetCheckPoint(Transform checkPoint)
    {
       _currentCheckPoint = checkPoint;
@@ -43,20 +46,21 @@ public class CarBehaviour : MonoBehaviour
    }
 
    // Initializes the NavMeshAgent component and sets its speed.
-   private void Start()
+   protected virtual void Start()
    {
       TryGetComponent(out _navMeshAgent);
       _navMeshAgent.speed = speed;
    }
 
+
    // Checks the current behavior of the car and performs the appropriate action.
-   private void FixedUpdate()
+   protected virtual void FixedUpdate()
    {
       CheckBehaviour();
    }
-
-   // Performs the action according to the current behavior of the car.
-   private void CheckBehaviour()
+   
+  
+   protected virtual void CheckBehaviour()
    {
       switch (carBehaviourState)
       {
@@ -78,34 +82,28 @@ public class CarBehaviour : MonoBehaviour
    }
 
    // Moves the car forward at its current speed.
-   private void Move()
-   { 
-      _navMeshAgent.isStopped = false;
-      _navMeshAgent.speed = speed;
-      var whereToGo = transform.forward * (Time.deltaTime * _navMeshAgent.speed);
-      _navMeshAgent.Move(whereToGo);
+   protected virtual void Move()
+   {
    }
 
    // Slows down the car to half its speed.
-   private void SlowDown()
+   protected virtual void SlowDown()
    {
-      var whereToGo = transform.forward * (Time.deltaTime * _navMeshAgent.speed / 2);
-      _navMeshAgent.Move(whereToGo);   
    }
 
    // Stops the car.
-   private void Stop()
+   protected virtual void Stop()
    {
-      _navMeshAgent.isStopped = true;
    }
 
-   private void CheckCheckPoint()
+   //Checkpoint manager
+   protected virtual void CheckCheckPoint()
    {
       //Gets the current checkpoint index the car is on
       _checkPointIndex = Array.IndexOf(checkPoints, _currentCheckPoint);
       //Increases the checkpoint destination index by 1
       _checkPointIndex++;
-      
+
       //Checks if the index is greater than the length of the checkpoint array
       if (_checkPointIndex > checkPoints.Length - 1)
       {
@@ -117,10 +115,15 @@ public class CarBehaviour : MonoBehaviour
       _navMeshAgent.speed = speed;
       _navMeshAgent.destination = checkPoints[_checkPointIndex].position;
    }
-   
+
    // Changes the current behavior of the car.
-   public void ChangeBehaviour(CarBehaviourState behaviourState)
+   public virtual void ChangeBehaviour(CarBehaviourState behaviourState)
    {
       carBehaviourState = behaviourState;
+   }
+   
+   public virtual void SetCheckPoints(Transform[] checkPoints)
+   {
+      this.checkPoints = checkPoints;
    }
 }
