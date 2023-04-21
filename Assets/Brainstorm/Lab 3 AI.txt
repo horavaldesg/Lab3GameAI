@@ -1,0 +1,27 @@
+Lab 3 AI
+
+Defensive Car:
+- Follows all rules.
+
+Panic Car:
+- Runs red lights.
+- Break checks other cars?
+	- Edits navmesh of otehr cars in order to crash into each other
+- Go on oneway streets?
+
+Emergency Car:
+- Switches state of all cars to exit the road
+
+
+Traffic Lights:
+- Make a manger that controls all traffic lights
+
+
+Environment:
+- Simple city with multiple turns
+
+Navmesh:
+- Set direction streets
+
+Pedestrians:
+- Use similar traffic light and car behaviour system
