@@ -5,6 +5,12 @@ using Random = UnityEngine.Random;
 
 public class PanicCar : CarBehaviour
 {
+    protected override void Start()
+    {
+        base.Start();
+        _navMeshAgent.stoppingDistance = 0;
+    }
+
     protected override void Move()
     {
         base.Move();
@@ -17,15 +23,15 @@ public class PanicCar : CarBehaviour
     protected override void SlowDown()
     {
         base.SlowDown();
-        var whereToGo = transform.forward * (Time.deltaTime * _navMeshAgent.speed * 2);
-        _navMeshAgent.Move(whereToGo);
+        ChangeBehaviour(CarBehaviourState.Move);
     }
 
     protected override void Stop()
     {
         base.Stop();
         var i = Random.Range(0, 1);
-        
-        _navMeshAgent.isStopped = i == 1;
+        ChangeBehaviour(i == 0 ? CarBehaviourState.Move : CarBehaviourState.Stop);
+
+        //_navMeshAgent.isStopped = i == 1;
     }
 }

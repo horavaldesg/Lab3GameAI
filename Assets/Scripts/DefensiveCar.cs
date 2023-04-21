@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class DefensiveCar : CarBehaviour
 {
+    protected override void Start()
+    {
+        base.Start();
+        _navMeshAgent.stoppingDistance = 2;
+    }
+
     protected override void Move()
     {
         base.Move();
