@@ -15,6 +15,7 @@ Emergency Car:
 
 Traffic Lights:
 - Make a manger that controls all traffic lights
+- Cars will react to each other depending on color of lights
 
 
 Environment:

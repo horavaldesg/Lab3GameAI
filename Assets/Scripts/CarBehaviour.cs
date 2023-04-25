@@ -17,7 +17,16 @@ public class CarBehaviour : MonoBehaviour
       SlowDown,
       Stop,
       CheckCheckPoint
-   };
+   }
+
+   public enum CarType
+   {
+      Defensive,
+      Panic,
+      Emergency
+   }
+
+   public CarType carType;
    
    // The current behavior of the car.
    public CarBehaviourState carBehaviourState;
@@ -58,9 +67,9 @@ public class CarBehaviour : MonoBehaviour
    {
       CheckBehaviour();
    }
-   
-  
-   protected virtual void CheckBehaviour()
+
+
+   private void CheckBehaviour()
    {
       switch (carBehaviourState)
       {
@@ -97,7 +106,7 @@ public class CarBehaviour : MonoBehaviour
    }
 
    //Checkpoint manager
-   protected virtual void CheckCheckPoint()
+   private void CheckCheckPoint()
    {
       //Gets the current checkpoint index the car is on
       _checkPointIndex = Array.IndexOf(checkPoints, _currentCheckPoint);
@@ -117,13 +126,28 @@ public class CarBehaviour : MonoBehaviour
    }
 
    // Changes the current behavior of the car.
-   public virtual void ChangeBehaviour(CarBehaviourState behaviourState)
+   public void ChangeBehaviour(CarBehaviourState behaviourState)
    {
       carBehaviourState = behaviourState;
    }
    
-   public virtual void SetCheckPoints(Transform[] checkPoints)
+   public void SetCheckPoints(Transform[] checkPoints)
    {
       this.checkPoints = checkPoints;
+   }
+
+   public CarBehaviourState CurrentCarBehaviour()
+   {
+      return carBehaviourState;
+   }
+
+   protected void SetCarType(CarType carType)
+   {
+      this.carType = carType;
+   }
+   
+   public CarType CurrentCarType()
+   {
+      return carType;
    }
 }

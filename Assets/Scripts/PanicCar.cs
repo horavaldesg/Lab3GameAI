@@ -8,6 +8,7 @@ public class PanicCar : CarBehaviour
     protected override void Start()
     {
         base.Start();
+        SetCarType(CarType.Panic);
         _navMeshAgent.stoppingDistance = 0;
     }
 

@@ -32,8 +32,11 @@ public class TrafficLightCheck : MonoBehaviour
             case "TrafficLight":
                 CheckTrafficLight(other);
                 break;
-            case "TurnPost":
-               // CheckTrafficPost(other);
+            case "Car":
+                if(_carBehaviour.CurrentCarType() == CarBehaviour.CarType.Panic) return;
+               other.gameObject.TryGetComponent(out DefensiveCar defensiveCar);
+                if(defensiveCar == null) return;
+                defensiveCar.ChangeBehaviour(_carBehaviour.CurrentCarBehaviour());
                 break;
         }
     }

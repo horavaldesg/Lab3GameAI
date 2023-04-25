@@ -7,6 +7,7 @@ public class DefensiveCar : CarBehaviour
     protected override void Start()
     {
         base.Start();
+        SetCarType(CarType.Defensive);
         _navMeshAgent.stoppingDistance = 2;
     }
 
