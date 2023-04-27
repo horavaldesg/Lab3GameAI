@@ -48,6 +48,7 @@ public class CarBehaviour : MonoBehaviour
 
    private Transform _currentCheckPoint;
 
+
    public void SetCheckPoint(Transform checkPoint)
    {
       _currentCheckPoint = checkPoint;

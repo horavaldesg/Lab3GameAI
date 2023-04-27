@@ -1,6 +1,6 @@
 using System;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TrafficLightCheck : MonoBehaviour
@@ -8,20 +8,30 @@ public class TrafficLightCheck : MonoBehaviour
     // Private fields
     private CarBehaviour _carBehaviour;
     private TrafficLight _trafficLight;
-    
+    private bool _collidedWithCheckpoint;
+
 
     private void Start()
     {
         // Try to get the parent's CarBehaviour component
+        gameObject.layer = transform.root.gameObject.layer;
         transform.parent.TryGetComponent(out _carBehaviour);
+        _collidedWithCheckpoint = false;
     }
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("CheckPoint"))
-        {
-            _carBehaviour.SetCheckPoint(other.transform);
-        }
+        if (!other.CompareTag("CheckPoint")) return;
+        if(_collidedWithCheckpoint) return;
+        _collidedWithCheckpoint = true;
+        _carBehaviour.SetCheckPoint(other.transform);
+        StartCoroutine(EndCollision());
+    }
+
+    private IEnumerator EndCollision()
+    {
+        yield return new WaitForSeconds(5);
+        _collidedWithCheckpoint = false;
     }
 
     private void OnTriggerStay(Collider other)

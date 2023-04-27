@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class TrafficLight : MonoBehaviour
 {
+    public enum RoadSide
+    {
+        Right,
+        Left
+    }
+
+    public RoadSide roadSide;
+    
     // Variables that store the individual lights and the time to switch between them
     [SerializeField] private IndividualLight redLight;
     [SerializeField] private IndividualLight yellowLight;
@@ -34,7 +42,24 @@ public class TrafficLight : MonoBehaviour
     {
         // Checks the current light color at the start of the program
         CheckLightColor();
+        SetLayer(GetSideLayer());
     }
+    
+    private int GetSideLayer()
+    {
+        return roadSide switch
+        {
+            RoadSide.Left => 10,
+            RoadSide.Right => 11,
+            _ => 0
+        };
+    }
+    
+    private void SetLayer(int layer)
+    {
+        transform.gameObject.layer = layer;
+    }
+
 
     private void Update()
     {

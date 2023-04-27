@@ -7,6 +7,7 @@ TagManager:
   - TrafficLight
   - TurnPost
   - CheckPoint
+  - Car
   layers:
   - Default
   - TransparentFX
@@ -14,12 +15,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - LeftCheckPoint
+  - RightCheckPoint
+  - LeftCar
+  - RigthCar
+  - LeftLight
+  - RightLight
   - 
   - 
   - 
