@@ -26,7 +26,9 @@ Systems:
 [WebGL](https://mywebspace.quinnipiac.edu/hvaldes/gdd_316/Lab3GameAI/).
 
 Assets used:
+
 [City Pack](https://assetstore.unity.com/packages/3d/environments/urban/city-package-107224).
+
 [Skybox](https://assetstore.unity.com/packages/2d/textures-materials/sky/skybox-series-free-103633).
 
 
