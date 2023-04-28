@@ -30,8 +30,10 @@ public class CarBehaviour : MonoBehaviour
    
    // The current behavior of the car.
    public CarBehaviourState carBehaviourState;
-   
 
+
+   public GameObject[] carMeshes;
+   
    // The NavMeshAgent component attached to the car object.
    protected NavMeshAgent _navMeshAgent;
 
@@ -42,7 +44,7 @@ public class CarBehaviour : MonoBehaviour
    private Vector3 _previousPos;
 
    //CheckPoints
-   [SerializeField] private Transform[] checkPoints;
+   [SerializeField] protected Transform[] checkPoints;
 
    private int _checkPointIndex;
 
@@ -52,13 +54,14 @@ public class CarBehaviour : MonoBehaviour
    public void SetCheckPoint(Transform checkPoint)
    {
       _currentCheckPoint = checkPoint;
-      ChangeBehaviour(CarBehaviourState.CheckCheckPoint);
    }
 
    // Initializes the NavMeshAgent component and sets its speed.
    protected virtual void Start()
    {
+      ChooseRandomMesh();
       TryGetComponent(out _navMeshAgent);
+      speed = Random.Range(4, speed);
       _navMeshAgent.speed = speed;
    }
 
@@ -94,6 +97,9 @@ public class CarBehaviour : MonoBehaviour
    // Moves the car forward at its current speed.
    protected virtual void Move()
    {
+      _navMeshAgent.isStopped = false;
+      _navMeshAgent.speed = speed;
+      _navMeshAgent.destination = checkPoints[_checkPointIndex].position;
    }
 
    // Slows down the car to half its speed.
@@ -107,7 +113,7 @@ public class CarBehaviour : MonoBehaviour
    }
 
    //Checkpoint manager
-   private void CheckCheckPoint()
+   public void CheckCheckPoint()
    {
       //Gets the current checkpoint index the car is on
       _checkPointIndex = Array.IndexOf(checkPoints, _currentCheckPoint);
@@ -120,11 +126,18 @@ public class CarBehaviour : MonoBehaviour
          _checkPointIndex = 0;
       }
 
-      //Makes navmesh agent move
-      _navMeshAgent.isStopped = false;
-      _navMeshAgent.speed = speed;
-      _navMeshAgent.destination = checkPoints[_checkPointIndex].position;
+      ChangeBehaviour(CarBehaviourState.Move);
    }
+
+   protected virtual void ChooseRandomMesh()
+   {
+      var randomMesh = Random.Range(0, carMeshes.Length);
+      for(var i = 0; i < carMeshes.Length; i++)
+      {
+         carMeshes[i].SetActive(randomMesh == i);
+      }
+   }
+   
 
    // Changes the current behavior of the car.
    public void ChangeBehaviour(CarBehaviourState behaviourState)

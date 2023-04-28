@@ -8,7 +8,6 @@ public class TrafficLightCheck : MonoBehaviour
     // Private fields
     private CarBehaviour _carBehaviour;
     private TrafficLight _trafficLight;
-    private bool _collidedWithCheckpoint;
 
 
     private void Start()
@@ -16,22 +15,13 @@ public class TrafficLightCheck : MonoBehaviour
         // Try to get the parent's CarBehaviour component
         gameObject.layer = transform.root.gameObject.layer;
         transform.parent.TryGetComponent(out _carBehaviour);
-        _collidedWithCheckpoint = false;
     }
     
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("CheckPoint")) return;
-        if(_collidedWithCheckpoint) return;
-        _collidedWithCheckpoint = true;
         _carBehaviour.SetCheckPoint(other.transform);
-        StartCoroutine(EndCollision());
-    }
-
-    private IEnumerator EndCollision()
-    {
-        yield return new WaitForSeconds(5);
-        _collidedWithCheckpoint = false;
+        _carBehaviour.CheckCheckPoint();
     }
 
     private void OnTriggerStay(Collider other)
@@ -46,7 +36,7 @@ public class TrafficLightCheck : MonoBehaviour
                 if(_carBehaviour.CurrentCarType() == CarBehaviour.CarType.Panic) return;
                other.gameObject.TryGetComponent(out DefensiveCar defensiveCar);
                 if(defensiveCar == null) return;
-                defensiveCar.ChangeBehaviour(_carBehaviour.CurrentCarBehaviour());
+               _carBehaviour.ChangeBehaviour(defensiveCar.CurrentCarBehaviour());
                 break;
         }
     }

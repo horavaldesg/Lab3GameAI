@@ -6,7 +6,8 @@ public class TrafficLight : MonoBehaviour
     public enum RoadSide
     {
         Right,
-        Left
+        Left,
+        Ped
     }
 
     public RoadSide roadSide;
@@ -17,6 +18,8 @@ public class TrafficLight : MonoBehaviour
     [SerializeField] private IndividualLight greenLight;
     [SerializeField] private float lightSwitchTime;
 
+    public bool hasPedLight;
+    
     // Enumeration that represents the different colors of the traffic light
     public enum LightColor
     {
@@ -51,6 +54,7 @@ public class TrafficLight : MonoBehaviour
         {
             RoadSide.Left => 10,
             RoadSide.Right => 11,
+            RoadSide.Ped => 12,
             _ => 0
         };
     }
@@ -85,6 +89,11 @@ public class TrafficLight : MonoBehaviour
         // Sets the current light color based on the current index and checks the light color
         lightColor = (LightColor)_lightIndex;
         CheckLightColor();
+    }
+
+    public void OverrideColor(LightColor lightColor)
+    {
+        this.lightColor = lightColor;
     }
 
     // Turns on the green light and turns off the yellow and red lights
@@ -131,5 +140,10 @@ public class TrafficLight : MonoBehaviour
 
         // Resets the time variable to 0
         _t = 0;
+    }
+
+    public LightColor CurrentColor()
+    {
+        return lightColor;
     }
 }

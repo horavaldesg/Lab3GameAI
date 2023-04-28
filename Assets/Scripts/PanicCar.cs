@@ -12,19 +12,16 @@ public class PanicCar : CarBehaviour
         _navMeshAgent.stoppingDistance = 0;
     }
 
-    protected override void Move()
-    {
-        base.Move();
-        _navMeshAgent.isStopped = false;
-        _navMeshAgent.speed = speed;
-        var whereToGo = transform.forward * (Time.deltaTime * _navMeshAgent.speed);
-        _navMeshAgent.Move(whereToGo);
-    }
 
     protected override void SlowDown()
     {
         base.SlowDown();
         ChangeBehaviour(CarBehaviourState.Move);
+    }
+
+    protected override void ChooseRandomMesh()
+    {
+        carMeshes[0].SetActive(true);
     }
 
     protected override void Stop()

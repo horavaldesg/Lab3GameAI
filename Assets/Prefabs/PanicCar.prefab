@@ -118,6 +118,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4422411005019263596}
+  - {fileID: 4197709948534925062}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -136,7 +137,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4422411005083744758}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -193,7 +194,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4422411005083744758}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.7
+  m_Radius: 1.6
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -204,7 +205,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 1
   m_BaseOffset: 0.5
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 3
   m_ObstacleAvoidanceType: 4
 --- !u!114 &-2446839832946271228
 MonoBehaviour:
@@ -218,6 +219,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcae9bab1f1bfda4cbb18d7b20e96d8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  carType: 1
   carBehaviourState: 0
-  speed: 3
+  carMeshes:
+  - {fileID: 3533797771431411132}
+  speed: 10
   checkPoints: []
+--- !u!1001 &668314451189384979
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4422411005083744752}
+    m_Modifications:
+    - target: {fileID: 3676932389410136085, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676932389410136085, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676932389410136085, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.309
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676932389410136085, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676932389410136085, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676932389410136085, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676932389410136085, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676932389410136085, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676932389410136085, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676932389410136085, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676932389410136085, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4056835250181585583, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+      propertyPath: m_Name
+      value: Jeep_done
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+--- !u!1 &3533797771431411132 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4056835250181585583, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+  m_PrefabInstance: {fileID: 668314451189384979}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4197709948534925062 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3676932389410136085, guid: 1402bcbb66ccc62419eaf39d4417b4ab, type: 3}
+  m_PrefabInstance: {fileID: 668314451189384979}
+  m_PrefabAsset: {fileID: 0}
