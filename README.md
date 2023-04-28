@@ -1,4 +1,7 @@
 # Lab3GameAI
+This lab simulates a basic city environment with both cars and pedestrians. The simulation includes traffic lights that control the flow of both vehicle and pedestrian traffic. There are three types of agents within the simulation: Panic and Defensive cars, and Pedestrians.
+
+
 
 Agents:
 Pedestrians:
