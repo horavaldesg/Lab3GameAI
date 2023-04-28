@@ -42,8 +42,9 @@ public class Pedestrian : MonoBehaviour
     private void Update()
     {
         debubCheckpoint = CurrentCheckpoint;
-        CheckLights();
         CheckBehaviour();
+        if(CheckLightsDistance() > 16) return;
+        CheckLights();
     }
 
     private void CheckBehaviour()
@@ -101,6 +102,11 @@ public class Pedestrian : MonoBehaviour
                 ChangeState(MovementType.Stop);
                 break;
         }
+    }
+
+    private float CheckLightsDistance()
+    {
+        return Vector3.Distance(transform.position, CurrentCheckpoint >= trafficLights.Length ? Vector3.zero : trafficLights[CurrentCheckpoint].transform.position);
     }
 
     private void ChangeState(MovementType movementType)

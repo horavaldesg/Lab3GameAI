@@ -5,22 +5,19 @@ using UnityEngine;
 
 public class TrafficLightManager : MonoBehaviour
 {
-    [SerializeField] private TrafficLight[] trafficLights;
-    [SerializeField] private TrafficLight[] pedLights;
+    [SerializeField] private TrafficLight[] topTrafficLights;
+    [SerializeField] private TrafficLight[] topPedLights;
+    [SerializeField] private TrafficLight[] bottomTrafficLights;
+    [SerializeField] private TrafficLight[] bottomPedLights;
 
     
     private void Update()
     {
-        foreach (var trafficLight in trafficLights)
-        {
-            if (trafficLight.hasPedLight)
-            {
-                CheckLights();
-            }
-        }
+        CheckLights(topTrafficLights, topPedLights);
+        CheckLights(bottomTrafficLights, bottomPedLights);
     }
 
-    private void CheckLights()
+    private void CheckLights(TrafficLight[] trafficLights, TrafficLight[] pedLights)
     {
         foreach (var t1 in trafficLights)
         {

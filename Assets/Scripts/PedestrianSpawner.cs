@@ -22,7 +22,7 @@ public class PedestrianSpawner : MonoBehaviour
     
     private void Start()
     {
-        _randomTime = RandomizeTime();
+       Spawn();
     }
 
     private void Update()
@@ -32,7 +32,7 @@ public class PedestrianSpawner : MonoBehaviour
         // If the time passed is less than timeToSpawn, exit the function
         if (!(_t > _randomTime)) return;
         // If the maximum amount of objects to spawn has been reached, exit the function
-        if(_spawnCount > amountOfObjectsToSpawn) return;
+        if(_spawnCount >= amountOfObjectsToSpawn) return;
         // If all conditions are met, spawn a new object
         Spawn();
     }
